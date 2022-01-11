@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesAppFirebase">
         <activity
-            android:name=".Activity.AddNotes"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.ShowNotes"
-            android:exported="false" />
-        <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>

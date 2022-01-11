@@ -1,14 +1,16 @@
 package com.example.notesappfirebase.RV_Adapter
 
-import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notesappfirebase.Activity.ShowNotes
 import com.example.notesappfirebase.Firebase.Data
+import com.example.notesappfirebase.MainFragment
+import com.example.notesappfirebase.R
 import com.example.notesappfirebase.databinding.RowBinding
 
-class RVAdapter (private var list: ArrayList<Data>): RecyclerView.Adapter<RVAdapter.Holder>() {
+class RVAdapter (private val mainFragment: MainFragment, private var list: ArrayList<Data>): RecyclerView.Adapter<RVAdapter.Holder>() {
 
     class Holder( val Binding: RowBinding): RecyclerView.ViewHolder(Binding.root)
 
@@ -23,10 +25,11 @@ class RVAdapter (private var list: ArrayList<Data>): RecyclerView.Adapter<RVAdap
             tvNote.text = data.note
 
             holder.itemView.setOnClickListener{
-                val data = Data( list[position].id, list[position].title, list[position].note)
-                val intent = Intent(holder.itemView.context, ShowNotes::class.java)
-                intent.putExtra("displayData",data)
-                holder.itemView.context.startActivity(intent)
+                mainFragment.findNavController().navigate(R.id.action_mainFragment_to_showFragment, Bundle().apply {
+                    putString("id", list[position].id)
+                    putString("title", list[position].title)
+                    putString("note", list[position].note)
+                })
             }
         }
     }
